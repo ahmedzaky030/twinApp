@@ -1,0 +1,82 @@
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="cost">Cost</label>
+        <input type="number" class="form-control" id="cost" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+      </div>
+    
+      <div class="form-group">
+        <label for="start">Start Date</label>
+        <input type="date" class="form-control" id="start" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+      </div>
+    
+      <div class="form-group">
+        <label for="delivery">Delivery Date</label>
+        <input type="date" class="form-control" id="delivery" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+      </div>
+    
+     
+    
+      <div class="form-group">
+        <label for="targetLab">Target Laboratory</label>
+        <input type="text" class="form-control" id="targetLab" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary">Submit</button>
+      <button (click)="modalRef.hide()" class="btn btn-primary">Cancel</button>
+  </div>
+
+
+</ng-template>
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Cost</th>
+      <th scope="col">Start Date</th>
+      <th scope="col">Delivery Date</th>
+      <th scope="col">Target Laboratory</th>
+      <th scope="col"> Actions </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>Target Lab1</td>
+      <td>
+        
+        <span (click)="openModal(template)" class="col-4"><i class="fa fa-trash"></i></span>
+        <span (click)="openModal(template)" class="col-4"><i class="fa fa-pencil"></i> </span>
+       <span (click)="openModal(template)" class="col-4"> <i class="fa fa-eye"></i></span>
+        
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+      <td>Target Lab2</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+      <td>Target Lab3</td>
+    </tr>
+  </tbody>
+</table>

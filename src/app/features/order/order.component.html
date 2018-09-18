@@ -1,0 +1,99 @@
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="orderNum">Order Number</label>
+        <input type="text" class="form-control" id="orderNum" aria-describedby="emailHelp" placeholder="Enter Doctor Name ">
+       
+      </div>
+      <div class="form-group">
+        <label for="orderOfTeeth">Order of Teeth</label>
+        <input type="text" class="form-control" id="orderOfTeeth" aria-describedby="emailHelp" placeholder="Enter Doctor Number ">
+       
+      </div>
+    
+      <div class="form-group">
+        <label for="type">Type Of Order</label>
+        <input type="text" class="form-control" id="type" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+      </div>
+    
+      <div class="form-group">
+        <label for="status">Status</label>
+        <input type="text" class="form-control" id="status" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+      </div>
+    
+      <div class="form-group">
+        <label for="cost">Cost</label>
+        <input type="number" class="form-control" id="cost" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+      </div>
+    
+      <div class="form-group">
+        <label for="delivery">Delivery Date</label>
+        <input type="date" class="form-control" id="delivery" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+      </div>
+    
+      <div class="form-group">
+        <label for="technId">Technician Name</label>
+        <input type="text" class="form-control" id="technId" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+      </div>
+     
+      <!-- <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div> -->
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary">Submit</button>
+      <button (click)="modalRef.hide()" class="btn btn-primary">Cancel</button>
+  </div>
+
+
+</ng-template>
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Order Number</th>
+      <th scope="col">Order of Teeth</th>
+      <th scope="col">Type Of Order</th>
+      <th scope="col">Status</th>
+      <th scope="col">Cost</th>
+      <th scope="col">Delivery Date</th>
+      <th scope="col">Technician Name</th>     
+      <th scope="col"> Actions </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>
+        <span (click)="openModal(template)" class="col-4"><i class="fa fa-trash"></i></span>
+        <span (click)="openModal(template)" class="col-4"><i class="fa fa-pencil"></i> </span>
+       <span (click)="openModal(template)" class="col-4"> <i class="fa fa-eye"></i></span>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>

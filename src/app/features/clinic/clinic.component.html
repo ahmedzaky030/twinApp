@@ -1,0 +1,76 @@
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="clinicForm">
+      <div class="form-group">
+        <label for="name">Clinic / Doctor Name</label>
+        <input type="text" class="form-control" name="clinicName" formControlName="clinicName" id="name" aria-describedby="emailHelp" placeholder="Enter Doctor Name ">
+       
+      </div>
+      <div class="form-group">
+        <label for="number">Clinic Phone Number</label>
+        <input type="text" class="form-control" id="number" name="clinicPhoneNum" formControlName="clinicPhoneNum" aria-describedby="emailHelp" placeholder="Enter Doctor Number ">
+       
+      </div>
+    
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address" name="address" formControlName="address" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+      </div>
+     
+      
+      
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" (click)="save()" [disabled]="!clinicForm.valid" class="btn btn-primary">Submit</button>
+      <button (click)="modalRef.hide()" class="btn btn-primary">Cancel</button>
+  </div>
+
+
+</ng-template>
+<ng-template #deletetemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{modalBody}}
+  </div>
+  <div class="modal-footer">
+   <button class="btn btn-primary" (click)="confirm()"> Ok</button>
+   <button class="btn btn-primary" (click)="cancel()"> No</button>
+  </div>
+</ng-template>
+<button (click)="openModal(template)" class="btn btn-primary" ><i class="fa fa-plus"> Add new clinic</i></button>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Clinic / Doctor Name</th>
+      <th scope="col">Clinic Phone Number</th>
+      <th scope="col">Address</th>
+      <th scope="col"> Actions </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let clinic of clinics; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{clinic.clinicName}}</td>
+      <td>{{clinic.clinicPhoneNum}}</td>
+      <td>{{clinic.address}}</td>
+      <td>
+        <span (click)="openDeleteModal(deletetemplate , clinic)" class="col-4"><i class="fa fa-trash"></i></span>
+      <span (click)="openModal(template, clinic)" class="col-4"><i class="fa fa-pencil"></i> </span>
+     <!-- <span (click)="openModal(template)" class="col-4"> <i class="fa fa-eye"></i></span> -->
+      </td>
+    </tr>    
+  </tbody>
+</table>

@@ -1,0 +1,72 @@
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+
+      <div class="form-group">
+          <label for="technId">Technician Name</label>
+          <input type="text" class="form-control" id="technId" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        </div>
+  
+      
+  
+   
+    <div class="form-group">
+      <label for="part-rate">Part Rate</label>
+      <input type="number" class="form-control" id="part-rate" aria-describedby="emailHelp" placeholder="Enter Doctor Number ">
+     
+    </div>
+  
+    <div class="form-group">
+      <label for="month-rate">Monthly Rate</label>
+      <input type="number" class="form-control" id="month-rate" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+    </div>
+  </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button (click)="modalRef.hide()" class="btn btn-primary">Cancel</button>
+  </div>
+</ng-template>
+
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Technician Name</th>
+      <th scope="col">Part Rate</th>
+      <th scope="col">Monthly Rate</th>
+      <th scope="col"> Actions </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>
+        <span (click)="openModal(template)" class="col-4"><i class="fa fa-trash"></i></span>
+        <span (click)="openModal(template)" class="col-4"><i class="fa fa-pencil"></i> </span>
+       <span (click)="openModal(template)" class="col-4"> <i class="fa fa-eye"></i></span>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td colspan="2">Larry the Bird</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>
