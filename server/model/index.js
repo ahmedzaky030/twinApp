@@ -4,8 +4,9 @@ var itemModel = require('./item');
 var orderModel = require('./order');
 var studentModel = require('./student');
 var technicianModel = require('./technician');
+var operationModel = require('./operation');
 
 module.exports = { clinicModel, extOrderModel , itemModel , orderModel
-, studentModel , technicianModel};
+, studentModel , technicianModel , operationModel};
 
 

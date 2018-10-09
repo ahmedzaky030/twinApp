@@ -6,44 +6,83 @@
     </button>
   </div>
   <div class="modal-body">
-    <form>
+    <form [formGroup]="extOrderForm">
+        <div class="form-group">
+            <label for="orderCode">Order Code</label>
+            <input type="text" class="form-control" id="orderCode" name="orderCode" formControlName="orderCode"  aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+          </div>
+
       <div class="form-group">
         <label for="cost">Cost</label>
-        <input type="number" class="form-control" id="cost" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        <input type="number" class="form-control" id="cost" name="cost" formControlName="cost" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
       </div>
+
+      <div class="form-group">
+          <label for="paid">Paid</label>
+          <input type="number" class="form-control" id="paid" name="paid" formControlName="paid" aria-describedby="emailHelp" placeholder="Enter Paid Money ">  
+        </div>
     
       <div class="form-group">
         <label for="start">Start Date</label>
-        <input type="date" class="form-control" id="start" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        <input type="date" class="form-control" id="start" name="startDate" formControlName="startDate" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
       </div>
     
       <div class="form-group">
         <label for="delivery">Delivery Date</label>
-        <input type="date" class="form-control" id="delivery" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        <input type="date" class="form-control" id="delivery" name="deliveryDate" formControlName="deliveryDate" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
       </div>
     
      
     
       <div class="form-group">
         <label for="targetLab">Target Laboratory</label>
-        <input type="text" class="form-control" id="targetLab" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        <input type="text" class="form-control" id="targetLab" name="targetLaboratory" formControlName="targetLaboratory"  aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
       </div>
+
+      
     </form>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" (click)="save()" [disabled]="!extOrderForm.valid" class="btn btn-primary">Submit</button>
       <button (click)="modalRef.hide()" class="btn btn-primary">Cancel</button>
   </div>
 
 
 </ng-template>
+<ng-template #deletetemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Delete </h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      {{modalBody}}
+    </div>
+    <div class="modal-footer">
+     <button class="btn btn-primary" *ngIf="!isDeleting" (click)="confirm()"> Ok</button>
+     <button class="btn btn-primary" (click)="cancel()"> No</button>
+    </div>
+  </ng-template>
+  <div class="row">
+      <div class="col-lg-6 form-group">
+          <button (click)="openModal(template, null)" class="btn btn-primary" ><i class="fa fa-plus"> Add new external Order</i></button>
+      </div>
+      <div class="col-lg-6 form-group form-inline"> 
+      <input type="search"  class="col-lg-offset-5 col-lg-5 form-control" [(ngModel)]="searchText" placeholder="search by clinic name" />
+      <button (click)="getResult()" class=" col-lg-3 btn btn-primary form\ "  > Search</button>
+      </div>
+      </div>
+  
 
 
 <table class="table table-hover">
   <thead>
     <tr>
       <th scope="col">#</th>
+      <th scope="col">OrderCode</th>
       <th scope="col">Cost</th>
+      <th scope="col">Paid</th>
       <th scope="col">Start Date</th>
       <th scope="col">Delivery Date</th>
       <th scope="col">Target Laboratory</th>
@@ -51,32 +90,48 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>Target Lab1</td>
-      <td>
-        
-        <span (click)="openModal(template)" class="col-4"><i class="fa fa-trash"></i></span>
-        <span (click)="openModal(template)" class="col-4"><i class="fa fa-pencil"></i> </span>
-       <span (click)="openModal(template)" class="col-4"> <i class="fa fa-eye"></i></span>
-        
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>Target Lab2</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-      <td>Target Lab3</td>
-    </tr>
+      <tr *ngFor="let extOrder of extOrders; let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{extOrder.orderCode}}</td>
+          <td>{{extOrder.cost}}</td>
+          <td>{{extOrder.paid || 0}}</td>
+          <td>{{extOrder.startDate | date:short}}</td>
+          <td>{{extOrder.deliveryDate | date: short}}</td>
+          <td>{{extOrder.targetLaboratory}}</td>    
+
+          <td>
+            <span (click)="openDeleteModal(deletetemplate , extOrder)" class="col-4"><i class="fa fa-trash"></i></span>
+          <span (click)="openModal(template, extOrder)" class="col-4"><i class="fa fa-pencil"></i> </span>
+         <!-- <span (click)="openModal(template)" class="col-4"> <i class="fa fa-eye"></i></span> -->
+          </td>
+        </tr>  
+    
   </tbody>
+
+  
 </table>
+
+<div class=" row form-inline">
+    
+    <div class="form-group  col-lg-6">
+        <label class="col-lg-3" for="totalCost">Total Cost</label>
+        <input type="Number" readonly class="form-control" id="totalCost" name="totalCost" [(ngModel)]="totalCost" aria-describedby="emailHelp" >  
+      </div>
+
+      <div class="form-group col-lg-6">
+          <label class="col-lg-3" for="totalpaid">Total Paid</label>
+          <input type="Number" readonly class="form-control" id="totalpaid" name="totalPaid" [(ngModel)]="totalPaid" aria-describedby="emailHelp" >  
+        </div>
+
+
+</div>
+<div class="row form-inline">
+    
+    
+      <div class="form-group col-lg-6">
+          <label class="col-lg-3" for="remain">Remain</label>
+          <input type="Number" readonly class="form-control" id="remain" name="remain" [value]="totalCost - totalPaid" aria-describedby="emailHelp" >  
+        </div>
+
+
+</div>

@@ -7,9 +7,12 @@ import "rxjs/add/operator/map";
 @Injectable()
 export class ClinicApi {
     constructor(private http: Http){}
-
-    getClinicList(): Observable<any>{
-       return  this.http.get(apiUrl.clinicUrl).map(res => res.json())
+    searchClinicUrl  = apiUrl.clinicUrlWithSearch;
+    clinicWithIdUrl = apiUrl.clinicUrlWithId;
+    clinicUrl = apiUrl.clinicUrl;
+    getClinicList(search?: string): Observable<any>{
+        let url = search ? this.searchClinicUrl.replace("{0}", search) : this.clinicUrl;
+       return  this.http.get(url).map(res => res.json())
     }
 
     createClinic(clinicObj: any){

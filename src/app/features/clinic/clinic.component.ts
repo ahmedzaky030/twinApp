@@ -11,8 +11,9 @@ import { timeout } from 'q';
   styleUrls: ['./clinic.component.css']
 })
 export class ClinicComponent implements OnInit {
-  addFlag: boolean;
-  editFlag: boolean;
+  isDeleting: boolean;
+  searchText: string;
+  isNew:boolean;
   modalBody:string;
   selectedClinic:any;
   clinics = [];
@@ -33,8 +34,22 @@ export class ClinicComponent implements OnInit {
 
   openModal(template : TemplateRef<any>, clinicObj: any){
     this.modalRef = this._modalService.show(template);
-    if(clinicObj) this.selectedClinic = clinicObj;
+    console.log(clinicObj);
+    if(!clinicObj) { 
+      this.isNew = true;
+      this.selectedClinic = Clinic.createNew(); }
+     else { 
+      this.isNew = false; 
+      this.selectedClinic = clinicObj; }
+    
+    console.log(this.selectedClinic);
     this.clinicForm.patchValue(this.selectedClinic);
+  }
+
+  getResult(){
+    this.clinicApi.getClinicList(this.searchText).subscribe(data => {
+      this.clinics = data;
+    })
   }
 
   openDeleteModal(template : TemplateRef<any>, clinicObj: any){
@@ -45,14 +60,17 @@ export class ClinicComponent implements OnInit {
   }
 
   confirm(){
+    this.isDeleting = true;
     this.clinicApi.deleteClinic(this.selectedClinic._id).subscribe(data => {
       this.modalBody = this.selectedClinic.clinicName + ' has been deleted successfully';
       this.getClinicsList();
       console.error('document deleted', data);
       setTimeout(() => {
         this.modalRef.hide();
+        this.isDeleting = false;        
       }, 2000)
     })
+    
   }
 
   cancel(){
@@ -61,7 +79,7 @@ export class ClinicComponent implements OnInit {
   }
 
   save(){
-    if(this.selectedClinic){
+    if(!this.isNew){
     this.clinicApi.modifyClinic(this.selectedClinic._id,this.clinicForm.value).subscribe(data => {
       console.log('Modified data is ',data);
       this.modalRef.hide();
@@ -74,7 +92,7 @@ export class ClinicComponent implements OnInit {
   this.getClinicsList();
     })
   }
-  
+   
   }
 
   getClinicsList(){
@@ -88,7 +106,14 @@ export class ClinicComponent implements OnInit {
 }
 
  class Clinic {
- public  clinicName:string;
- public  clinicPhoneNum:string;
- public  address:string;
+ 
+ constructor(
+  private  clinicName:string,
+  private  clinicPhoneNum:string,
+  private  address:string,
+ ){}
+
+ public static createNew(){
+   return new Clinic("","", "");
+ }
 }

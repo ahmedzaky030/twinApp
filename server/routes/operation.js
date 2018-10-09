@@ -1,21 +1,21 @@
 var router = require('express').Router();
-var Student = require('../model/student');
+var Operation = require('../model/operation');
 var errorLog = require('chalk').red;
 
 router
 .get('/' , (req, res) => {
-    //res.json({'message': 'hello from Student router'});
+    //res.json({'message': 'hello from operation router'});
     
-    Student.find((err, result)=>{
+    Operation.find((err, result)=>{
         if(err) console.log(error);
         res.json(result);
     })
 })
 .get('/search/:search' , (req, res) => {
-    //res.json({'message': 'hello from clinic router'});
+    //res.json({'message': 'hello from operation router'});
     var search = req.params.search;
-    console.log('search student name by', search )
-    Student.find({studentName : { '$regex': search , '$options': 'i'} },(err, result)=>{
+    console.log('search operation name by', search )
+    Operation.find({operationName : { '$regex': search , '$options': 'i'} },(err, result)=>{
         if(err) console.log(error);
         res.json(result);
     })
@@ -23,7 +23,7 @@ router
 .post('/', (req ,res) => {
    // console.log(body({"body":"hello"}))
    var doc =  req.body;
-   Student.create(doc,(err, result)=> {
+   Operation.create(doc,(err, result)=> {
        if(err) console.log(errorLog(err));
        console.log(result);
        res.json(result);
@@ -33,7 +33,7 @@ router
     var doc =  req.body;
     console.log('document to modify',doc);
     var id = req.params.id;
-   Student.findByIdAndUpdate(id, doc ,(err, result)=> {
+   Operation.findByIdAndUpdate(id, doc ,(err, result)=> {
        if(err) console.log(errorLog(err));
        console.log(result);
        res.json(result);
@@ -41,7 +41,7 @@ router
 })
 .delete('/:id', (req, res)=>{
     var id= req.params.id;
-    Student.findOneAndRemove({_id:id}, (err, result)=> {
+    Operation.findOneAndRemove({_id:id}, (err, result)=> {
         if(err) console.log(errorLog(err))
         console.log(result);
         res.json(result);

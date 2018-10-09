@@ -3,9 +3,10 @@ var mongoose = require('../config/connection');
 var ExtOrderSchema = {
     orderCode: String,
     cost:Number,
-    StartDate:Date,
-    DeliveryDate: Date,
-    TargetLaboratory: String
+    paid: Number,
+    startDate:Date,
+    deliveryDate: Date,
+    targetLaboratory: String
 }
 
 var schema = mongoose.Schema(ExtOrderSchema);

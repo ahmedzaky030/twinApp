@@ -8,6 +8,7 @@ import { ExtOrderComponent } from './ext-order/ext-order.component';
 import { TechnicianComponent } from './technician/technician.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { OperationComponent } from './operation/operation.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule
   ],
-  declarations: [ClinicComponent, StudentComponent, ItemComponent, OrderComponent, ExtOrderComponent, TechnicianComponent, DashboardComponent],
-  exports:[ClinicComponent, StudentComponent, ItemComponent, OrderComponent, ExtOrderComponent, TechnicianComponent , DashboardComponent],
+  declarations: [ClinicComponent, StudentComponent, ItemComponent, OrderComponent, ExtOrderComponent, TechnicianComponent, DashboardComponent, OperationComponent],
+  exports:[ClinicComponent, StudentComponent, ItemComponent, OrderComponent, ExtOrderComponent, TechnicianComponent , DashboardComponent, OperationComponent],
 })
 export class FeaturesModule { }

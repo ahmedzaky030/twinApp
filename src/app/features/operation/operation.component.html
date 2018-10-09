@@ -1,0 +1,118 @@
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="operationForm">
+      <div class="form-group">
+        <label for="name">Operation Name</label>
+        <input type="text" class="form-control" name="operationName" formControlName="operationName" id="name"
+          aria-describedby="emailHelp" placeholder="Enter Doctor Name ">
+
+      </div>
+      <div>
+        <button (click)="addItem()" class="btn btn-primary">Add Item</button>
+        <div class="form-group " formArrayName="items" *ngFor="let item of operationForm.controls.items.controls; let index= i;">
+          <div class=" form-inline" [formGroup]="item" >
+            <div class="form-group col-lg-4">
+            <label for="number">Item Name </label>
+            <select class="form-control" name="itemName" formControlName="itemName">
+              <option value="item1">item 1</option>
+              <option value="item2">item 2</option>
+            </select>
+            </div>
+            <div class="form-group col-lg-3">
+              <label for="number">Quantity </label>
+              <input type="number" class=" form-control" name="quantity" formControlName="quantity" >
+            </div>
+            <div class="form-group col-lg-4">
+              <label for="number">Unit </label>
+              <select class="form-control" name="unit" formControlName="unit">
+                <option value="gm">gm</option>
+                <option value="milli.gm">milli.gm</option>
+                <option value="kilo.gm">kilo.gm</option>
+              </select>
+            </div>
+            <span  (click)="deleteFromArray(i)" ><i class="fa fa-trash"></i></span>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" (click)="save()" [disabled]="!operationForm.valid" class="btn btn-primary">Submit</button>
+    <button (click)="modalRef.hide()" class="btn btn-primary">Cancel</button>
+  </div>
+
+
+</ng-template>
+<ng-template #deletetemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete </h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{modalBody}}
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary" *ngIf="!isDeleting" (click)="confirm()"> Ok</button>
+    <button class="btn btn-primary" (click)="cancel()"> No</button>
+  </div>
+</ng-template>
+<div class="row">
+  <div class="col-lg-6 form-group">
+    <button (click)="openModal(template, null)" class="btn btn-primary col-lg-3"><i class="fa fa-plus"> Add new
+        operation</i></button>
+  </div>
+  <div class="col-lg-6 form-group form-inline">
+    <input type="search" class="col-lg-offset-5 col-lg-5 form-control" [(ngModel)]="searchText" placeholder="search by operation name" />
+    <button (click)="getResult()" class=" col-lg-3 btn btn-primary form\ "> Search</button>
+  </div>
+</div>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Operation / Doctor Name</th>
+      <th scope="col">Items</th>     
+      <th scope="col"> Actions </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let operation of operations; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{operation.operationName}}</td>
+      <td>
+        <table>
+          <thead>
+            <th>Item Name</th>
+            <th> Quantity</th>
+            <th>Unit </th>
+          </thead>
+          <tbody>
+            <tr *ngFor= " let item of operation.items">
+              <td > {{item.itemName}}</td>
+              <td>{{item.quantity}}</td>
+              <td>{{item.unit}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+      <td>
+        <span (click)="openDeleteModal(deletetemplate , operation)" class="col-4"><i class="fa fa-trash"></i></span>
+        <span (click)="openModal(template, operation)" class="col-4"><i class="fa fa-pencil"></i> </span>
+        <!-- <span (click)="openModal(template)" class="col-4"> <i class="fa fa-eye"></i></span> -->
+      </td>
+    </tr>
+  </tbody>
+</table>

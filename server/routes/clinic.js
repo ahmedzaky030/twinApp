@@ -2,10 +2,20 @@ var router = require('express').Router();
 var Clinic = require('../model/clinic');
 var errorLog = require('chalk').red;
 
-router.get('/' , (req, res) => {
+router
+.get('/' , (req, res) => {
     //res.json({'message': 'hello from clinic router'});
     
     Clinic.find((err, result)=>{
+        if(err) console.log(error);
+        res.json(result);
+    })
+})
+.get('/search/:search' , (req, res) => {
+    //res.json({'message': 'hello from clinic router'});
+    var search = req.params.search;
+    console.log('search clinic name by', search )
+    Clinic.find({clinicName : { '$regex': search , '$options': 'i'} },(err, result)=>{
         if(err) console.log(error);
         res.json(result);
     })

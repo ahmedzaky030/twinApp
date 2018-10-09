@@ -6,6 +6,7 @@
  var itemRouter = require('./item');
  var studentRouter = require('./student');
  var technicianRouter = require('./technician');
+ var operationRouter = require('./operation');
  
 
 
@@ -15,6 +16,7 @@
  router.use('/item', itemRouter);
  router.use('/student', studentRouter);
  router.use('/technician', technicianRouter);
+ router.use('/operation', operationRouter);
  
  router.get('/test', (req, res) => {
 

@@ -6,31 +6,31 @@
     </button>
   </div>
   <div class="modal-body">
-    <form>
+    <form [formGroup]="itemForm">
       <div class="form-group">
         <label for="name">Item Name</label>
-        <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Item Name ">
+        <input type="text" class="form-control" id="name" name="itemName" formControlName="itemName" aria-describedby="emailHelp" placeholder="Enter Item Name ">
        
       </div>
       <div class="form-group">
         <label for="type">Type</label>
-        <input type="text" class="form-control" id="type" aria-describedby="emailHelp" placeholder="Enter Type ">
+        <input type="text" class="form-control" id="type" name="type" formControlName="type" aria-describedby="emailHelp" placeholder="Enter Type ">
        
       </div>
     
       <div class="form-group">
         <label for="price">Price</label>
-        <input type="number" class="form-control" id="price" aria-describedby="emailHelp" placeholder="Enter Price ">  
+        <input type="number" class="form-control" id="price" name="price" formControlName="price" aria-describedby="emailHelp" placeholder="Enter Price ">  
       </div>
     
       <div class="form-group">
         <label for="qty">Quantity</label>
-        <input type="number" class="form-control" id="qty" aria-describedby="emailHelp" placeholder="Enter Quantity ">  
+        <input type="number" class="form-control" id="qty" name="quantity" formControlName="quantity" aria-describedby="emailHelp" placeholder="Enter Quantity ">  
       </div>
     
       <div class="form-group">
         <label for="validateDate">Validate Date</label>
-        <input type="date" class="form-control" id="validateDate" aria-describedby="emailHelp" placeholder="Enter Validate Date ">  
+        <input type="date" class="form-control" id="validateDate" name="validateDate" formControlName="validateDate" aria-describedby="emailHelp" placeholder="Enter Validate Date ">  
       </div>
      
       <!-- <div class="form-group form-check">
@@ -40,12 +40,36 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" (click)="save()" [disabled]="!itemForm.valid" class="btn btn-primary">Submit</button>
       <button (click)="modalRef.hide()" class="btn btn-primary">Cancel</button>
   </div>
 
 
 </ng-template>
+<ng-template #deletetemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Delete </h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      {{modalBody}}
+    </div>
+    <div class="modal-footer">
+     <button class="btn btn-primary" (click)="confirm()"> Ok</button>
+     <button class="btn btn-primary" (click)="cancel()"> No</button>
+    </div>
+  </ng-template>
+  <div class="row">
+      <div class="col-lg-6 form-group">
+          <button (click)="openModal(template)" class="btn btn-primary" ><i class="fa fa-plus"> Add new item</i></button>
+      </div>
+      <div class="col-lg-6 form-group form-inline"> 
+      <input type="search"  class="col-lg-offset-5 col-lg-5 form-control" [(ngModel)]="searchText" placeholder="search by item name" />
+      <button (click)="getResult()" class=" col-lg-3 btn btn-primary form\ "  > Search</button>
+      </div>
+      </div>
 
 
 <table class="table table-hover">
@@ -61,37 +85,18 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>price1</td>
-      <td>qantity1</td>
-      <td>validate date1</td>
-      <td>@mdo</td>
-      <td>
-        
-        <span (click)="openModal(template)" class="col-4"><i class="fa fa-trash"></i></span>
-      <span (click)="openModal(template)" class="col-4"><i class="fa fa-pencil"></i> </span>
-     <span (click)="openModal(template)" class="col-4"> <i class="fa fa-eye"></i></span>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>price1</td>
-      <td>qantity1</td>
-      <td>validate date1</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>price1</td>
-      <td>qantity1</td>
-      <td>validate date1</td>
-      <td>@twitter</td>
-    </tr>
+      <tr *ngFor="let item of items; let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{item.itemName}}</td>
+          <td>{{item.type}}</td>
+          <td>{{item.price}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{item.validateDate | date:short}}</td>
+          <td>
+            <span (click)="openDeleteModal(deletetemplate , item)" class="col-4"><i class="fa fa-trash"></i></span>
+          <span (click)="openModal(template, item)" class="col-4"><i class="fa fa-pencil"></i> </span>
+         <!-- <span (click)="openModal(template)" class="col-4"> <i class="fa fa-eye"></i></span> -->
+          </td>
+        </tr>
   </tbody>
 </table>

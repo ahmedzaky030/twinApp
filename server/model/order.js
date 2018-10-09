@@ -1,12 +1,12 @@
 var mongoose = require('../config/connection');
 
 var OrderSchema = {
-    OrderCode: String,
+    orderCode: String,
     teethOrder:String,
     status:String,
     orderType:String,
-    cost: String,
-    deliveryDate: String,
+    cost: Number,
+    deliveryDate: Date,
     technicianName:String
 }
 

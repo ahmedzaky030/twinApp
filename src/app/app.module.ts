@@ -9,7 +9,7 @@ import { FeaturesModule } from './features/features.module';
 import { SharedModule } from './shared/shared.module'
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ClinicApi } from './api/services';
+import { ClinicApi, StudentApi,  OrderApi, ExtOrderApi, ItemApi , TechnicianApi , OperationApi} from './api/services';
 import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { HttpModule } from '@angular/http';
     BrowserAnimationsModule,
     HttpModule
   ],
-  providers: [ClinicApi],
+  providers: [ClinicApi , StudentApi ,  OrderApi , ExtOrderApi , ItemApi , TechnicianApi , OperationApi],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

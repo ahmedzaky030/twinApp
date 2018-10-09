@@ -6,26 +6,28 @@
     </button>
   </div>
   <div class="modal-body">
-    <form>
+    <form [formGroup]="studentForm">
       <div class="form-group">
         <label for="name">Student Name</label>
-        <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Doctor Name ">
+        <input type="text" class="form-control" id="name" name="studentName" formControlName="studentName" aria-describedby="emailHelp" placeholder="Enter Doctor Name ">
        
       </div>
       <div class="form-group">
         <label for="university">University</label>
-        <input type="text" class="form-control" id="university" aria-describedby="emailHelp" placeholder="Enter Doctor Number ">
+        <input type="text" class="form-control" id="university" name="university" formControlName="university" aria-describedby="emailHelp" placeholder="Enter Doctor Number ">
        
       </div>
     
       <div class="form-group">
         <label for="grade">Grade</label>
-        <input type="text" class="form-control" id="grade" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        <input type="text" class="form-control" id="grade" name="grade" formControlName="grade" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        
       </div>
-    
+
+      
       <div class="form-group">
-        <label for="id">ID</label>
-        <input type="text" class="form-control" id="id" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        <label for="id">Code</label>
+        <input type="text" class="form-control" id="id" name="code" formControlName="code" />  
       </div>
      
       <!-- <div class="form-group form-check">
@@ -36,13 +38,37 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" (click)="save()" [disabled]="!studentForm.valid" class="btn btn-primary">Submit</button>
       <button (click)="modalRef.hide()" class="btn btn-primary">Cancel</button>
   </div>
 
 
 </ng-template>
 
+<ng-template #deletetemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Delete </h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      {{modalBody}}
+    </div>
+    <div class="modal-footer">
+     <button class="btn btn-primary" *ngIf="!isDeleting" (click)="confirm()"> Ok</button>
+     <button class="btn btn-primary" (click)="cancel()"> No</button>
+    </div>
+  </ng-template>
+  <div class="row">
+      <div class="col-lg-6 form-group">
+          <button (click)="openModal(template, null)" class="btn btn-primary" ><i class="fa fa-plus"> Add new Student</i></button>
+      </div>
+      <div class="col-lg-6 form-group form-inline"> 
+      <input type="search"  class="col-lg-offset-5 col-lg-5 form-control" [(ngModel)]="searchText" placeholder="search by student name" />
+      <button (click)="getResult()" class=" col-lg-3 btn btn-primary form\ "  > Search</button>
+      </div>
+      </div>
 
 <table class="table table-hover">
   <thead>
@@ -51,32 +77,32 @@
       <th scope="col">Student Name</th>
       <th scope="col">University</th>
       <th scope="col">Grade</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Requirements</th>      
+      <th scope="col">Code</th>
       <th scope="col"> Actions </th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>
-        <span (click)="openModal(template)" class="col-4"><i class="fa fa-trash"></i></span>
-        <span (click)="openModal(template)" class="col-4"><i class="fa fa-pencil"></i> </span>
-       <span (click)="openModal(template)" class="col-4"> <i class="fa fa-eye"></i></span>
-      </td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
+      <tr *ngFor="let student of students; let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{student.studentName}}</td>
+          <td>{{student.university}}</td>
+          <td>{{student.grade}}</td>
+          <td>
+            <div>
+              <label>1. <input  type="checkbox" [(ngModel)]="student.requirement.frst" ></label>
+            <label>2. <input  type="checkbox"  [(ngModel)]="student.requirement.scnd" > </label>
+             <label>3. <input  type="checkbox" [(ngModel)]="student.requirement.thrd" > </label>
+            <label>4. <input  type="checkbox" [(ngModel)]="student.requirement.frth"  > </label>
+            <span class="col-lg-3" (click)="updateReq(student)">Update <i class="fa fa-thumbs-up"></i></span>
+            </div>
+          </td>
+          <td>{{student.code}}</td>
+          <td>
+            <span (click)="openDeleteModal(deletetemplate , student)" class="col-4"><i class="fa fa-trash"></i></span>
+          <span (click)="openModal(template, student)" class="col-4"><i class="fa fa-pencil"></i> </span>
+         <!-- <span (click)="openModal(template)" class="col-4"> <i class="fa fa-eye"></i></span> -->
+          </td>
+        </tr>     
   </tbody>
 </table>
