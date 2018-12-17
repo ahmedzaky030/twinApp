@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ExtOrderApi } from '../../api/services';
+import { debug } from 'util';
 
 @Component({
   selector: 'app-ext-order',
@@ -11,14 +12,15 @@ import { ExtOrderApi } from '../../api/services';
 export class ExtOrderComponent implements OnInit {
   isDeleting: boolean;
   isNew:boolean;
-  totalCost: Number;
-  totalPaid: Number;
+  totalCost: number;
+  totalPaid: number;
   searchText: string;
   modalBody:string;
   selectedExtOrder:any;
   extOrders = [];
   extOrderForm: FormGroup;
   modalRef: BsModalRef;
+  result: number;
   constructor( private _modalService:BsModalService ,
      private extOrderApi: ExtOrderApi,
      private _fb: FormBuilder ) { }
@@ -42,7 +44,8 @@ export class ExtOrderComponent implements OnInit {
        this.extOrders.forEach((v, i) => {
          console.log(v.cost);
         this.totalCost += v.cost;
-        this.totalPaid += v.paid;
+        this.totalPaid += v.paid;        
+        this.result = this.totalCost - this.totalPaid;
       })
     })
   }
@@ -118,8 +121,8 @@ class ExtOrder {
   constructor(
     private orderCode:string,
     private targetLaboratory: string, 
-    private cost: Number,
-    private paid: Number,
+    private cost: number,
+    private paid: number,
     private startDate: Date,
     private deliveryDate: Date  
   ){}

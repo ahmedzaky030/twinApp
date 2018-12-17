@@ -17,7 +17,7 @@ export class OrderComponent implements OnInit {
   orders = [];
   orderForm: FormGroup;
   modalRef: BsModalRef;
-  operations: [];
+  operations = [] ;
   statuses = ['In Progress', 'Not Started' , 'Finished' ];
   constructor( private _modalService:BsModalService ,
      private orderApi: OrderApi,
