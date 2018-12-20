@@ -106,8 +106,8 @@
       <tr *ngFor="let order of orders; let i = index">
           <th scope="row">{{i+1}}</th>
           <td>{{order.orderCode}}</td>
+          <td> {{order.teethOrder}}</td>
           <td>{{order.orderType}}</td>
-          <td>{{order.teethOrder}}</td>
           <td>{{order.status}}</td>
           <td>{{order.cost}}</td>
           <td>{{order.deliveryDate | date: short}}</td>

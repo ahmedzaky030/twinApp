@@ -45,7 +45,8 @@ export class OperationComponent implements OnInit {
   }
 
   addItem(){
-    this.ingredients = this.operationForm.controls.items as FormArray;
+    debugger;
+    this.ingredients = this.operationForm.controls.ingredients as FormArray;
     this.ingredients.push(this.buildNewIngredient());
   }
   buildNewIngredient(){
