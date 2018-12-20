@@ -2,6 +2,8 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { OperationApi } from '../../api/services/operationApi';
+import { ItemApi } from 'src/app/api/services';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-operation',
@@ -16,19 +18,30 @@ export class OperationComponent implements OnInit {
   modalBody:string;
   selectedOperation:any;
   operations = [];
+  items = [];
+  getItemsSub: Subscription;
   operationForm: FormGroup;
   modalRef: BsModalRef;
   constructor( private _modalService:BsModalService ,
      private operationApi: OperationApi,
-     private _fb: FormBuilder ) { }
+     private _fb: FormBuilder, 
+     private itemsApi: ItemApi ) { }
 
   ngOnInit() {
     this.operationForm = this._fb.group({
       operationName:['', Validators.required],
-      items: this._fb.array([this.buildNewIngredient()])
+      ingredients: this._fb.array([this.buildNewIngredient()])
     })
     console.log(this.operationForm);
     this.getOperationsList();
+    this.getItemsList();
+  }
+
+  getItemsList(){
+      this.getItemsSub = this.itemsApi.getItemList().subscribe(data => {
+        console.log('get ditem in op',data);
+        this.items = data;
+      })
   }
 
   addItem(){
@@ -37,7 +50,7 @@ export class OperationComponent implements OnInit {
   }
   buildNewIngredient(){
     return this._fb.group({
-      itemName:'',
+      item:{},
       quantity:'',
       unit:''
     })
@@ -54,8 +67,10 @@ export class OperationComponent implements OnInit {
       this.selectedOperation = Operation.createNew(); }
      else { 
       this.isNew = false; 
-      this.selectedOperation = operationObj; }   
+      this.selectedOperation = operationObj;
+    console.log(this.selectedOperation); }   
     this.operationForm.patchValue(this.selectedOperation);
+    console.log(this.operationForm.value);
   }
 
   getResult(){
@@ -92,13 +107,14 @@ export class OperationComponent implements OnInit {
 
   save(){
     console.log(this.operationForm.value);
+
     if(!this.isNew){
     this.operationApi.modifyOperation(this.selectedOperation._id,this.operationForm.value).subscribe(data => {
       console.log('Modified data is ',data);
       this.modalRef.hide();
   this.getOperationsList();
     })
-  } else {
+   } else {
     this.operationApi.createOperation(this.operationForm.value).subscribe(data => {
       console.log('New Created data is ',data);
       this.modalRef.hide();
@@ -122,7 +138,7 @@ export class OperationComponent implements OnInit {
  
  constructor(
   private  operationName:string,
-  private  ingredient: Ingredient[],
+  private  ingredients: Ingredient[],
   
  ){}
 

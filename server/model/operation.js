@@ -2,9 +2,12 @@ var mongoose = require('../config/connection');
 
 var operationSchema = {
     operationName: String,
-    items:[
+    ingredients:[
         {   
-            itemName: String,
+            item: {
+                type:mongoose.Schema.Types.ObjectId,
+                ref:'Item'
+            },
             quantity: Number,
             unit: String
         }

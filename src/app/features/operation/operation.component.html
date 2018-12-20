@@ -1,6 +1,6 @@
 <ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
+    <h4 class="modal-title pull-left">Add New / Edit Operation</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -15,13 +15,13 @@
       </div>
       <div>
         <button (click)="addItem()" class="btn btn-primary">Add Item</button>
-        <div class="form-group " formArrayName="items" *ngFor="let item of operationForm.controls.items.controls; let index= i;">
+        <div class="form-group " formArrayName="ingredients" *ngFor="let item of operationForm.controls.ingredients.controls; let i= index;">
           <div class=" form-inline" [formGroup]="item" >
             <div class="form-group col-lg-4">
             <label for="number">Item Name </label>
-            <select class="form-control" name="itemName" formControlName="itemName">
-              <option value="item1">item 1</option>
-              <option value="item2">item 2</option>
+            <select class="form-control" name="item" formControlName="item">
+              <option *ngFor="let itm of items" [value]="itm._id">{{itm.itemName}}</option>
+              
             </select>
             </div>
             <div class="form-group col-lg-3">
@@ -83,7 +83,7 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Operation / Doctor Name</th>
+      <th scope="col">Operation  Name</th>
       <th scope="col">Items</th>     
       <th scope="col"> Actions </th>
     </tr>
@@ -100,10 +100,10 @@
             <th>Unit </th>
           </thead>
           <tbody>
-            <tr *ngFor= " let item of operation.items">
-              <td > {{item.itemName}}</td>
-              <td>{{item.quantity}}</td>
-              <td>{{item.unit}}</td>
+            <tr *ngFor= " let ing of operation.ingredients">
+              <td > {{ing.item.itemName}}</td>
+              <td>{{ing.quantity}}</td>
+              <td>{{ing.unit}}</td>
             </tr>
           </tbody>
         </table>

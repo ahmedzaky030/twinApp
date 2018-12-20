@@ -1,12 +1,13 @@
 var router = require('express').Router();
 var Operation = require('../model/operation');
 var errorLog = require('chalk').red;
+var Item = require('../model/item');
 
 router
 .get('/' , (req, res) => {
     //res.json({'message': 'hello from operation router'});
     
-    Operation.find((err, result)=>{
+    Operation.find({}).populate("ingredients.item").exec((err, result)=>{
         if(err) console.log(error);
         res.json(result);
     })
@@ -15,18 +16,39 @@ router
     //res.json({'message': 'hello from operation router'});
     var search = req.params.search;
     console.log('search operation name by', search )
-    Operation.find({operationName : { '$regex': search , '$options': 'i'} },(err, result)=>{
+    
+    Operation.find({operationName : { '$regex': search , '$options': 'i'} }).populate("ingredients.item").exec((err, doc)=>{
         if(err) console.log(error);
-        res.json(result);
+       res.json(doc);
     })
+
+    // (err, result)=>{
+    //     if(err) console.log(error);
+    //     res.json(result);
+    // }
 })
 .post('/', (req ,res) => {
    // console.log(body({"body":"hello"}))
    var doc =  req.body;
+   console.log('new operation doc', doc);
+   
+//    var operation = new Operation();
+//    operation.save(function(err){
+//        if(err) console.log(err);
+//        else {
+//            operation.
+//        }
+//    })
+    
+    
+    
    Operation.create(doc,(err, result)=> {
        if(err) console.log(errorLog(err));
-       console.log(result);
+       else {
+        
+       console.log('operation result',result);
        res.json(result);
+       }
    })
 })
 .put('/:id', (req, res) =>{
