@@ -11,11 +11,17 @@ export class OrderApi {
     searchOrderUrl  = apiUrl.orderUrlWithSearch;
     orderWithIdUrl = apiUrl.orderUrlWithId;
     orderUrl = apiUrl.orderUrl;
+    orderFinishedUrl = apiUrl.orderFinishedUrl;
     
     getOrderList(search?: string): Observable<any>{
         let url = search ? this.searchOrderUrl.replace("{0}", search) : this.orderUrl;
         return  this.http.get(url).map(res => res.json())
     }
+
+    getOrderFinishedList(){
+        let url = this.orderFinishedUrl;
+        return this.http.get(url).map(res => res.json())
+      }
 
     createOrder(orderObj: any){
         let headers = new Headers();

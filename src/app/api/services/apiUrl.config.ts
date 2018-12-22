@@ -20,6 +20,7 @@ export const apiUrl = {
     orderUrl:`${baseUrl}/order`,
     orderUrlWithId: `${baseUrl}/order/{0}`,
     orderUrlWithSearch : `${baseUrl}/order/search/{0}`,
+    orderFinishedUrl : `${baseUrl}/order/finished`,
 
     // ext-order
     extOrderUrl: `${baseUrl}/ext-order`,
@@ -36,5 +37,8 @@ export const apiUrl = {
     itemUrl:`${baseUrl}/item`,
     itemUrlWithId:`${baseUrl}/item/{0}`,
     itemUrlWithSearch : `${baseUrl}/item/search/{0}`,
+
+    //store
+    storeUrl:`${baseUrl}/store`
 
 }

@@ -30,22 +30,20 @@ export class OperationComponent implements OnInit {
   ngOnInit() {
     this.operationForm = this._fb.group({
       operationName:['', Validators.required],
+      price:['', Validators.required],
       ingredients: this._fb.array([this.buildNewIngredient()])
     })
-    console.log(this.operationForm);
     this.getOperationsList();
     this.getItemsList();
   }
 
   getItemsList(){
       this.getItemsSub = this.itemsApi.getItemList().subscribe(data => {
-        console.log('get ditem in op',data);
         this.items = data;
       })
   }
 
   addItem(){
-    debugger;
     this.ingredients = this.operationForm.controls.ingredients as FormArray;
     this.ingredients.push(this.buildNewIngredient());
   }
@@ -69,9 +67,8 @@ export class OperationComponent implements OnInit {
      else { 
       this.isNew = false; 
       this.selectedOperation = operationObj;
-    console.log(this.selectedOperation); }   
+    }   
     this.operationForm.patchValue(this.selectedOperation);
-    console.log(this.operationForm.value);
   }
 
   getResult(){
@@ -83,7 +80,6 @@ export class OperationComponent implements OnInit {
   openDeleteModal(template : TemplateRef<any>, operationObj: any){
     this.modalRef = this._modalService.show(template);
     this.modalBody = "Are you sure to remove " + operationObj.operationName ; 
-    console.log(this.modalBody);
     this.selectedOperation = operationObj;
   }
 
@@ -92,13 +88,11 @@ export class OperationComponent implements OnInit {
     this.operationApi.deleteOperation(this.selectedOperation._id).subscribe(data => {
       this.modalBody = this.selectedOperation.operationName + ' has been deleted successfully';
       this.getOperationsList();
-      console.error('document deleted', data);
       setTimeout(() => {
         this.modalRef.hide();
         this.isDeleting = false;        
       }, 2000)
     })
-    
   }
 
   cancel(){
@@ -107,19 +101,15 @@ export class OperationComponent implements OnInit {
   }
 
   save(){
-    console.log(this.operationForm.value);
-
     if(!this.isNew){
     this.operationApi.modifyOperation(this.selectedOperation._id,this.operationForm.value).subscribe(data => {
-      console.log('Modified data is ',data);
       this.modalRef.hide();
-  this.getOperationsList();
+      this.getOperationsList();
     })
    } else {
     this.operationApi.createOperation(this.operationForm.value).subscribe(data => {
-      console.log('New Created data is ',data);
       this.modalRef.hide();
-  this.getOperationsList();
+      this.getOperationsList();
     })
   }
    
@@ -127,12 +117,9 @@ export class OperationComponent implements OnInit {
 
   getOperationsList(){
     this.operationApi.getOperationList().subscribe(data => {
-      console.log('data from server', data);
       this.operations = data;
     })
-
   }
-
 }
 
  class Operation {
@@ -140,11 +127,12 @@ export class OperationComponent implements OnInit {
  constructor(
   private  operationName:string,
   private  ingredients: Ingredient[],
+  private   price: number
   
  ){}
 
  public static createNew(){
-   return new Operation("",[]);
+   return new Operation("",[] , 0);
  }
  }
 

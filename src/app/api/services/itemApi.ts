@@ -25,12 +25,12 @@ export class ItemApi {
     }
 
     deleteItem(id:string){
-        console.log('id',id);
+        
         return this.http.delete(apiUrl.itemUrlWithId.replace("{0}", id))
     }
 
     modifyItem(id:string, itemObj:any){
-        console.log('id',id);
+        
         
         let headers = new Headers();
         headers.set("Content-Type","application/json");

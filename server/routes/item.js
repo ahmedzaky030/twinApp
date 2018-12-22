@@ -1,6 +1,7 @@
 var router = require('express').Router();
 var Item = require('../model/item');
 var errorLog = require('chalk').red;
+var Store = require('../model/store');
 
 router
 .get('/' , (req, res) => {
@@ -14,7 +15,8 @@ router
 .get('/search/:search' , (req, res) => {
     //res.json({'message': 'hello from clinic router'});
     var search = req.params.search;
-    console.log('search  item name by', search )
+    console.log('search  item name by', search );
+    
     Item.find({itemName : { '$regex': search , '$options': 'i'} },(err, result)=>{
         if(err) console.log(error);
         res.json(result);
@@ -26,6 +28,18 @@ router
    Item.create(doc,(err, result)=> {
        if(err) console.log(errorLog(err));
        console.log(result);
+       var store = new Store();
+       store.item = result._id;
+       store.createdAt = new Date();
+       store.updatedAt = new Date();
+       store.quantityConsumed = 0;
+       store.quantityRemained = result.quantity;
+       Store.create(store, (err, storeResult)=>{
+           if(err) console.log(err);
+           else {
+               console.log('store saved..', storeResult);
+           }
+       })
        res.json(result);
    })
 })

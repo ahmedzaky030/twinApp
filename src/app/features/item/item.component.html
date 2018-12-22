@@ -27,6 +27,15 @@
         <label for="qty">Quantity</label>
         <input type="number" class="form-control" id="qty" name="quantity" formControlName="quantity" aria-describedby="emailHelp" placeholder="Enter Quantity ">  
       </div>
+
+      <div class="form-group">
+          <label for="uom">Unit</label>
+          <select class="form-control" name="uom" formControlName="uom">
+              <option value="gm">gm</option>
+              <option value="milli.gm">milli.gm</option>
+              <option value="kilo.gm">kilo.gm</option>
+            </select>
+        </div>
     
       <div class="form-group">
         <label for="validateDate">Validate Date</label>

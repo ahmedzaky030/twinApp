@@ -5,6 +5,7 @@ var itemSchema = {
     price:Number,
     quantity:Number,
     validateDate:Date,
+    uom:String
 }
 
 var schema = mongoose.Schema(itemSchema);

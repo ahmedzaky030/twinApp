@@ -25,13 +25,11 @@ export class ExtOrderApi {
     }
 
     deleteExtOrder(id:string){
-        console.log('id',id);
+        
         return this.http.delete(apiUrl.extOrderUrlWithId.replace("{0}", id))
     }
 
     modifyExtOrder(id:string, extOrderObj:any){
-        console.log('id',id);
-        
         let headers = new Headers();
         headers.set("Content-Type","application/json");
         headers.set("Accept", "*/*");

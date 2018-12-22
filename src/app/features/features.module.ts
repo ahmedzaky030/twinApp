@@ -9,6 +9,7 @@ import { TechnicianComponent } from './technician/technician.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { OperationComponent } from './operation/operation.component';
+import { StoreComponent } from './store/store.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { OperationComponent } from './operation/operation.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  declarations: [ClinicComponent, StudentComponent, ItemComponent, OrderComponent, ExtOrderComponent, TechnicianComponent, DashboardComponent, OperationComponent],
-  exports:[ClinicComponent, StudentComponent, ItemComponent, OrderComponent, ExtOrderComponent, TechnicianComponent , DashboardComponent, OperationComponent],
+  declarations: [ClinicComponent, StudentComponent, ItemComponent, OrderComponent, ExtOrderComponent, TechnicianComponent, DashboardComponent, OperationComponent, StoreComponent],
+  exports:[ClinicComponent, StudentComponent, ItemComponent, OrderComponent, ExtOrderComponent, TechnicianComponent , DashboardComponent, OperationComponent , StoreComponent],
 })
 export class FeaturesModule { }

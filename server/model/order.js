@@ -4,8 +4,9 @@ var OrderSchema = {
     orderCode: String,
     teethOrder:String,
     status:String,
-    orderType:String,
+    orderType:{ type:mongoose.Schema.Types.ObjectId, ref:'Operation'},
     cost: Number,
+    orderDate: Date,
     deliveryDate: Date,
     technicianName:String
 }

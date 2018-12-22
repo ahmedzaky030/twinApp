@@ -1,6 +1,11 @@
 var router = require('express').Router();
 var Order = require('../model/order');
 var errorLog = require('chalk').red;
+var Store = require('../model/store');
+var Operation = require('../model/operation');
+var chalk = require('chalk');
+
+var orderFinished = require('chalk').green;
 
 router
 .get('/' , (req, res) => {
@@ -8,6 +13,15 @@ router
     
     Order.find((err, result)=>{
         if(err) console.log(error);
+        res.json(result);
+    })
+})
+.get('/finished' , (req, res) => {
+    //res.json({'message': 'hello from Order router'});
+    
+    Order.find({status:'Finished'}).populate("orderType","operationName price").exec((err, result)=>{
+        if(err) console.log(err);
+        //console.log(orderFinished(result));
         res.json(result);
     })
 })
@@ -33,6 +47,21 @@ router
     var doc =  req.body;
     console.log('document to modify',doc);
     var id = req.params.id;
+    console.log(doc)
+    if(doc.status == 'Finished'){
+        Operation.findById(doc.orderType).populate("ingredients.item").exec( (err , opObj) =>{
+            if(err) console.log(err);
+            else {
+                opObj.ingredients.forEach((v,i)=>{
+                    
+                    console.log('item',v.item._id);
+                    Store.findOneAndUpdate({item:v.item._id} , {  $inc :{quantityConsumed : v.quantity , quantityRemained: -v.quantity}  }, (err , store)=> {
+                        console.log(chalk.yellow('store result', store));                        
+                    })
+                })
+            }
+        })
+    }
    Order.findByIdAndUpdate(id, doc ,(err, result)=> {
        if(err) console.log(errorLog(err));
        console.log(result);

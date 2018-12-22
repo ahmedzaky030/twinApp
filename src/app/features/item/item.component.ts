@@ -27,7 +27,8 @@ export class ItemComponent implements OnInit {
       type:['', Validators.required],
       price:[0.0, [Validators.required, Validators.min(1)]],
       quantity: [0, [Validators.required, Validators.min(1)]],
-      validateDate:new Date() 
+      validateDate:new Date(),
+      uom:['',Validators.required]
     })
     this.getItemsList();
   }
@@ -52,7 +53,6 @@ export class ItemComponent implements OnInit {
   openDeleteModal(template : TemplateRef<any>, itemObj: any){
     this.modalRef = this._modalService.show(template);
     this.modalBody = "Are you sure to remove " + itemObj.itemName ; 
-    console.log(this.modalBody);
     this.selectedItem = itemObj;
   }
 
@@ -61,7 +61,6 @@ export class ItemComponent implements OnInit {
     this.itemApi.deleteItem(this.selectedItem._id).subscribe(data => {
       this.modalBody = this.selectedItem.itemName + ' has been deleted successfully';
       this.getItemsList();
-      console.error('document deleted', data);
       setTimeout(() => {
         this.modalRef.hide();
         this.isDeleting = false;
@@ -78,15 +77,13 @@ export class ItemComponent implements OnInit {
   save(){
     if(!this.isNew){
     this.itemApi.modifyItem(this.selectedItem._id,this.itemForm.value).subscribe(data => {
-      console.log('Modified data is ',data);
-      this.modalRef.hide();
-  this.getItemsList();
+      this.modalRef.hide(); 
+      this.getItemsList();
     })
   } else {
     this.itemApi.createItem(this.itemForm.value).subscribe(data => {
-      console.log('New Created data is ',data);
-      this.modalRef.hide();
-  this.getItemsList();
+      this.modalRef.hide(); 
+      this.getItemsList();
     })
   }
   
@@ -94,7 +91,6 @@ export class ItemComponent implements OnInit {
 
   getItemsList(){
     this.itemApi.getItemList().subscribe(data => {
-      console.log('data from server', data);
       this.items = data;
     })
 
@@ -104,13 +100,14 @@ export class ItemComponent implements OnInit {
 class Item{
   constructor(
     private itemName: string,
-    private price: Number,
+    private price: number,
     private type: string,
-    private quantity: Number,
-    private validateDate: Date
+    private quantity: number,
+    private validateDate: Date,
+    private uom: string
   ){}
 
   public static createNew(){
-    return new Item("", 0 , "", 0 , new Date())
+    return new Item("", 0 , "", 0 , new Date(), "")
   }
 }

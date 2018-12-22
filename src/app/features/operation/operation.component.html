@@ -13,6 +13,11 @@
           aria-describedby="emailHelp" placeholder="Enter Doctor Name ">
 
       </div>
+      <div class="form-group">
+          <label for="name">Price</label>
+          <input type="text" class="form-control" name="price" formControlName="price" id="price"
+            aria-describedby="emailHelp" placeholder="Enter Price ">
+      </div>
       <div>
         <button (click)="addItem()" class="btn btn-primary">Add Item</button>
         <div class="form-group " formArrayName="ingredients" *ngFor="let item of operationForm.controls.ingredients.controls; let i= index;">
@@ -84,6 +89,7 @@
     <tr>
       <th scope="col">#</th>
       <th scope="col">Operation  Name</th>
+      <th scope="col">Price</th>
       <th scope="col">Items</th>     
       <th scope="col"> Actions </th>
     </tr>
@@ -92,6 +98,7 @@
     <tr *ngFor="let operation of operations; let i = index">
       <th scope="row">{{i+1}}</th>
       <td>{{operation.operationName}}</td>
+      <td>{{operation.price}}</td>
       <td>
         <table>
           <thead>

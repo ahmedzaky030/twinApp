@@ -11,7 +11,8 @@ var operationSchema = {
             quantity: Number,
             unit: String
         }
-    ]
+    ],
+    price: Number
 }
 
 

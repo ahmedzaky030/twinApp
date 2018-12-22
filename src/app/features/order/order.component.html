@@ -21,7 +21,7 @@
       <div class="form-group">
         <label for="type">Operation</label>
         <select class="form-control" id="type" name="orderType" formControlName="orderType">
-          <option *ngFor="let op of operations " [value]="op.operationName"> {{op.operationName}}</option>
+          <option *ngFor="let op of operations " [value]="op._id"> {{op.operationName}}</option>
         </select>
         <!-- <input type="text" class="form-control" id="type" name="orderType" formControlName="orderType" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">   -->
       </div>

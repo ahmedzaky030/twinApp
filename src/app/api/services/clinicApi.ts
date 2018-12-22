@@ -23,13 +23,10 @@ export class ClinicApi {
     }
 
     deleteClinic(id:string){
-        console.log('id',id);
         return this.http.delete(apiUrl.clinicUrlWithId.replace("{0}", id))
     }
 
-    modifyClinic(id:string, clinicObj:any){
-        console.log('id',id);
-        
+    modifyClinic(id:string, clinicObj:any){  
         let headers = new Headers();
         headers.set("Content-Type","application/json");
         headers.set("Accept", "*/*");

@@ -34,7 +34,6 @@ export class ClinicComponent implements OnInit {
 
   openModal(template : TemplateRef<any>, clinicObj: any){
     this.modalRef = this._modalService.show(template);
-    console.log(clinicObj);
     if(!clinicObj) { 
       this.isNew = true;
       this.selectedClinic = Clinic.createNew(); }
@@ -42,7 +41,6 @@ export class ClinicComponent implements OnInit {
       this.isNew = false; 
       this.selectedClinic = clinicObj; }
     
-    console.log(this.selectedClinic);
     this.clinicForm.patchValue(this.selectedClinic);
   }
 
@@ -55,7 +53,6 @@ export class ClinicComponent implements OnInit {
   openDeleteModal(template : TemplateRef<any>, clinicObj: any){
     this.modalRef = this._modalService.show(template);
     this.modalBody = "Are you sure to remove " + clinicObj.clinicName ; 
-    console.log(this.modalBody);
     this.selectedClinic = clinicObj;
   }
 
@@ -64,13 +61,11 @@ export class ClinicComponent implements OnInit {
     this.clinicApi.deleteClinic(this.selectedClinic._id).subscribe(data => {
       this.modalBody = this.selectedClinic.clinicName + ' has been deleted successfully';
       this.getClinicsList();
-      console.error('document deleted', data);
-      setTimeout(() => {
+     setTimeout(() => {
         this.modalRef.hide();
         this.isDeleting = false;        
       }, 2000)
     })
-    
   }
 
   cancel(){
@@ -81,23 +76,19 @@ export class ClinicComponent implements OnInit {
   save(){
     if(!this.isNew){
     this.clinicApi.modifyClinic(this.selectedClinic._id,this.clinicForm.value).subscribe(data => {
-      console.log('Modified data is ',data);
       this.modalRef.hide();
-  this.getClinicsList();
+      this.getClinicsList();
     })
-  } else {
+    } else {
     this.clinicApi.createClinic(this.clinicForm.value).subscribe(data => {
-      console.log('New Created data is ',data);
       this.modalRef.hide();
-  this.getClinicsList();
-    })
-  }
-   
+      this.getClinicsList();
+      })
+    }
   }
 
   getClinicsList(){
     this.clinicApi.getClinicList().subscribe(data => {
-      console.log('data from server', data);
       this.clinics = data;
     })
 

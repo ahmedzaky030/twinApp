@@ -32,8 +32,6 @@ export class StudentComponent implements OnInit {
   }
 
   updateReq( student: any){
-    
-    console.log('student' , student);
     this.studentApi.modifyStudent(student._id, student).subscribe(data =>{
       this.studentApi.getStudentList();
     })
@@ -41,29 +39,24 @@ export class StudentComponent implements OnInit {
 
   getResult(){
     this.studentApi.getStudentList(this.searchText).subscribe(data => {
-      console.log(data);
       this.students = data;
     })
   }
 
   openModal(template : TemplateRef<any>, studentObj: any){
     this.modalRef = this._modalService.show(template);
-    console.log(studentObj);
     if(!studentObj) { 
       this.isNew = true;
       this.selectedStudent = Student.createNew(); }
      else { 
       this.isNew = false; 
       this.selectedStudent = studentObj; }
-    
-    console.log(this.selectedStudent);
     this.studentForm.patchValue(this.selectedStudent);
   }
 
   openDeleteModal(template : TemplateRef<any>, studentObj: any){
     this.modalRef = this._modalService.show(template);
     this.modalBody = "Are you sure to remove " + studentObj.studentName ; 
-    console.log(this.modalBody);
     this.selectedStudent = studentObj;
   }
 
@@ -72,13 +65,11 @@ export class StudentComponent implements OnInit {
     this.studentApi.deleteStudent(this.selectedStudent._id).subscribe(data => {
       this.modalBody = this.selectedStudent.studentName + ' has been deleted successfully';
       this.getStudentsList();
-      console.error('document deleted', data);
       setTimeout(() => {
         this.modalRef.hide();
         this.isDeleting = false;        
       }, 2000)
     })
-    
   }
 
   cancel(){
@@ -89,15 +80,13 @@ export class StudentComponent implements OnInit {
   save(){
     if(!this.isNew){
     this.studentApi.modifyStudent(this.selectedStudent._id,this.studentForm.value).subscribe(data => {
-      console.log('Modified data is ',data);
       this.modalRef.hide();
   this.getStudentsList();
     })
   } else {
     this.studentApi.createStudent(this.studentForm.value).subscribe(data => {
-      console.log('New Created data is ',data);
-      this.modalRef.hide();
-  this.getStudentsList();
+      this.modalRef.hide(); 
+      this.getStudentsList();
     })
   }
    
@@ -105,10 +94,8 @@ export class StudentComponent implements OnInit {
 
   getStudentsList(){
     this.studentApi.getStudentList().subscribe(data => {
-      console.log('data from server', data);
       this.students = data;
     })
-
   }
 }
 

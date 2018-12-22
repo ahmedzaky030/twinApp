@@ -46,30 +46,24 @@ export class OrderComponent implements OnInit {
 
   getOpertionList(){
     this.operationApi.getOperationList().subscribe(data => {
-      this.operations = data;
-      console.log(this.operations);
-       
+      this.operations = data;       
     })
   }
 
   openModal(template : TemplateRef<any>, orderObj: any){
     this.modalRef = this._modalService.show(template);
-    console.log(orderObj);
     if(!orderObj) {
       this.isNew = true;
       this.selectedOrder = Order.createNew(); }
      else { 
       this.isNew = false; 
       this.selectedOrder = orderObj; }
-    
-    console.log(this.selectedOrder);
     this.orderForm.patchValue(this.selectedOrder);
   }
 
   openDeleteModal(template : TemplateRef<any>, orderObj: any){
     this.modalRef = this._modalService.show(template);
     this.modalBody = "Are you sure to remove order number :  " + orderObj.orderCode ; 
-    console.log(this.modalBody);
     this.selectedOrder = orderObj;
   }
 
@@ -78,7 +72,6 @@ export class OrderComponent implements OnInit {
     this.orderApi.deleteOrder(this.selectedOrder._id).subscribe(data => {
       this.modalBody = this.selectedOrder.orderCode + ' has been deleted successfully';
       this.getOrdersList();
-      console.error('document deleted', data);
       setTimeout(() => {
         this.modalRef.hide();
         this.isDeleting = false;        
@@ -95,15 +88,13 @@ export class OrderComponent implements OnInit {
   save(){
     if(!this.isNew){
     this.orderApi.modifyOrder(this.selectedOrder._id,this.orderForm.value).subscribe(data => {
-      console.log('Modified data is ',data);
       this.modalRef.hide();
-  this.getOrdersList();
+      this.getOrdersList();
     })
   } else {
     this.orderApi.createOrder(this.orderForm.value).subscribe(data => {
-      console.log('New Created data is ',data);
       this.modalRef.hide();
-  this.getOrdersList();
+      this.getOrdersList();
     })
   }
    
@@ -111,12 +102,9 @@ export class OrderComponent implements OnInit {
 
   getOrdersList(){
     this.orderApi.getOrderList().subscribe(data => {
-      console.log('data from server', data);
       this.orders = data;
     })
-
   }
-
 }
 
 class Order {

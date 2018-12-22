@@ -25,13 +25,11 @@ export class StudentApi {
     }
 
     deleteStudent(id:string){
-        console.log('id',id);
+        
         return this.http.delete(apiUrl.studentUrlWithId.replace("{0}", id))
     }
 
     modifyStudent(id:string, studentObj:any){
-        console.log('id',id);
-        
         let headers = new Headers();
         headers.set("Content-Type","application/json");
         headers.set("Accept", "*/*");
