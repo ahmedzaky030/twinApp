@@ -1,6 +1,6 @@
 <ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
+    <h4 class="modal-title pull-left">{{isNew ? 'Create New Item' : 'Edit Item'}}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -30,7 +30,7 @@
 
       <div class="form-group">
           <label for="uom">Unit</label>
-          <select class="form-control" name="uom" formControlName="uom">
+          <select class="form-control" name="uom"  formControlName="uom">
               <option value="gm">gm</option>
               <option value="milli.gm">milli.gm</option>
               <option value="kilo.gm">kilo.gm</option>
@@ -87,6 +87,7 @@
       <th scope="col">#</th>
       <th scope="col">Item Name</th>
       <th scope="col">Type</th>
+      <th scope="col">Unit</th>
       <th scope="col">Price</th>
       <th scope="col">Quantity</th>
       <th scope="col">Validate Date</th>
@@ -98,6 +99,7 @@
           <th scope="row">{{i+1}}</th>
           <td>{{item.itemName}}</td>
           <td>{{item.type}}</td>
+          <td>{{item.uom}}</td>
           <td>{{item.price}}</td>
           <td>{{item.quantity}}</td>
           <td>{{item.validateDate | date:short}}</td>

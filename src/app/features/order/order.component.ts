@@ -102,6 +102,7 @@ export class OrderComponent implements OnInit {
 
   getOrdersList(){
     this.orderApi.getOrderList().subscribe(data => {
+      console.log(data);
       this.orders = data;
     })
   }

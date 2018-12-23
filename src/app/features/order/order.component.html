@@ -1,6 +1,6 @@
 <ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
+    <h4 class="modal-title pull-left">{{isNew ? 'Create New Order':'Edit Order'}}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -9,12 +9,12 @@
     <form [formGroup]="orderForm">
       <div class="form-group">
         <label for="orderNum">Order Number</label>
-        <input type="text" class="form-control" id="orderNum" name="orderCode" formControlName="orderCode" aria-describedby="emailHelp" placeholder="Enter Doctor Name ">
+        <input type="text" class="form-control" id="orderNum" name="orderCode" formControlName="orderCode" aria-describedby="emailHelp" placeholder="Enter Order Code ">
        
       </div>
       <div class="form-group">
         <label for="orderOfTeeth">Order of Teeth</label>
-        <input type="text" class="form-control" id="orderOfTeeth" name="teethOrder" formControlName="teethOrder" aria-describedby="emailHelp" placeholder="Enter Doctor Number ">
+        <input type="text" class="form-control" id="orderOfTeeth" name="teethOrder" formControlName="teethOrder" aria-describedby="emailHelp" placeholder="Enter Teeth Order ">
        
       </div>
     
@@ -36,17 +36,17 @@
     
       <div class="form-group">
         <label for="cost">Cost</label>
-        <input type="number" class="form-control" id="cost" name="cost" formControlName="cost" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        <input type="number" class="form-control" id="cost" name="cost" formControlName="cost" aria-describedby="emailHelp" placeholder="Enter Cost ">  
       </div>
     
       <div class="form-group">
         <label for="delivery">Delivery Date</label>
-        <input type="date" class="form-control" id="delivery" name="deliveryDate" formControlName="deliveryDate" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        <input type="date" class="form-control" id="delivery" name="deliveryDate" formControlName="deliveryDate" aria-describedby="emailHelp" placeholder="Enter Delivery Date ">  
       </div>
     
       <div class="form-group">
         <label for="technId">Technician Name</label>
-        <input type="text" class="form-control" id="technId" name="technicianName" formControlName="technicianName" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        <input type="text" class="form-control" id="technId" name="technicianName" formControlName="technicianName" aria-describedby="emailHelp" placeholder="Enter Technician Name ">  
       </div>
      
       <!-- <div class="form-group form-check">
@@ -107,7 +107,7 @@
           <th scope="row">{{i+1}}</th>
           <td>{{order.orderCode}}</td>
           <td> {{order.teethOrder}}</td>
-          <td>{{order.orderType}}</td>
+          <td>{{order.orderType.operationName}}</td>
           <td>{{order.status}}</td>
           <td>{{order.cost}}</td>
           <td>{{order.deliveryDate | date: short}}</td>

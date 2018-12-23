@@ -1,6 +1,6 @@
 <ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
+    <h4 class="modal-title pull-left">{{isNew ? 'Create new technician' : 'Edit technician'}}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -10,7 +10,7 @@
 
       <div class="form-group">
           <label for="technId">Technician Name</label>
-          <input type="text" class="form-control" id="technId" name="technicianName" formControlName="technicianName" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+          <input type="text" class="form-control" id="technId" name="technicianName" formControlName="technicianName" aria-describedby="emailHelp" placeholder="Enter Technician Name ">  
         </div>
   
       
@@ -18,13 +18,13 @@
    
     <div class="form-group">
       <label for="part-rate">Part Rate</label>
-      <input type="number" class="form-control" id="part-rate" name="partRate" formControlName="partRate" aria-describedby="emailHelp" placeholder="Enter Doctor Number ">
+      <input type="number" class="form-control" id="part-rate" name="partRate" formControlName="partRate" aria-describedby="emailHelp" placeholder="Enter Part Rate ">
      
     </div>
   
     <div class="form-group">
       <label for="month-rate">Monthly Rate</label>
-      <input type="number" class="form-control" id="month-rate" name="monthlyRate" formControlName="monthlyRate" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+      <input type="number" class="form-control" id="month-rate" name="monthlyRate" formControlName="monthlyRate" aria-describedby="emailHelp" placeholder="Enter Monthly Rate ">  
     </div>
   </form>
   </div>

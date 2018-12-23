@@ -1,6 +1,6 @@
 <ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
+    <h4 class="modal-title pull-left">{{isNew ? 'Create new External Order': 'Edit External Order'}}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -9,12 +9,12 @@
     <form [formGroup]="extOrderForm">
         <div class="form-group">
             <label for="orderCode">Order Code</label>
-            <input type="text" class="form-control" id="orderCode" name="orderCode" formControlName="orderCode"  aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+            <input type="text" class="form-control" id="orderCode" name="orderCode" formControlName="orderCode"  aria-describedby="emailHelp" placeholder="Enter Order Code ">  
           </div>
 
       <div class="form-group">
         <label for="cost">Cost</label>
-        <input type="number" class="form-control" id="cost" name="cost" formControlName="cost" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        <input type="number" class="form-control" id="cost" name="cost" formControlName="cost" aria-describedby="emailHelp" placeholder="Enter Cost ">  
       </div>
 
       <div class="form-group">
@@ -24,26 +24,26 @@
     
       <div class="form-group">
         <label for="start">Start Date</label>
-        <input type="date" class="form-control" id="start" name="startDate" formControlName="startDate" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        <input type="date" class="form-control" id="start" name="startDate" formControlName="startDate" aria-describedby="emailHelp" placeholder="Enter Start Date ">  
       </div>
     
       <div class="form-group">
         <label for="delivery">Delivery Date</label>
-        <input type="date" class="form-control" id="delivery" name="deliveryDate" formControlName="deliveryDate" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        <input type="date" class="form-control" id="delivery" name="deliveryDate" formControlName="deliveryDate" aria-describedby="emailHelp" placeholder="Enter Delivery Date">  
       </div>
     
      
     
       <div class="form-group">
         <label for="targetLab">Target Laboratory</label>
-        <input type="text" class="form-control" id="targetLab" name="targetLaboratory" formControlName="targetLaboratory"  aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
+        <input type="text" class="form-control" id="targetLab" name="targetLaboratory" formControlName="targetLaboratory"  aria-describedby="emailHelp" placeholder="Enter Target Laboratory ">  
       </div>
 
       
     </form>
   </div>
   <div class="modal-footer">
-    <button type="submit" (click)="save()" [disabled]="!extOrderForm.valid" class="btn btn-primary">Submit</button>
+    <button type="submit" (click)="save()" [disabled]="!extOrderForm.valid" class="btn btn-primary">Save</button>
       <button (click)="modalRef.hide()" class="btn btn-primary">Cancel</button>
   </div>
 
@@ -69,7 +69,7 @@
           <button (click)="openModal(template, null)" class="btn btn-primary" ><i class="fa fa-plus"> Add new external Order</i></button>
       </div>
       <div class="col-lg-6 form-group form-inline"> 
-      <input type="search"  class="col-lg-offset-5 col-lg-5 form-control" [(ngModel)]="searchText" placeholder="search by clinic name" />
+      <input type="search"  class="col-lg-offset-5 col-lg-5 form-control" [(ngModel)]="searchText" placeholder="search by order code" />
       <button (click)="getResult()" class=" col-lg-3 btn btn-primary form\ "  > Search</button>
       </div>
       </div>

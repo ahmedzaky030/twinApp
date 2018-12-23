@@ -92,6 +92,7 @@ export class ItemComponent implements OnInit {
   getItemsList(){
     this.itemApi.getItemList().subscribe(data => {
       this.items = data;
+      console.log(this.items);
     })
 
   }

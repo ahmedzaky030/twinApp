@@ -11,7 +11,7 @@ router
 .get('/' , (req, res) => {
     //res.json({'message': 'hello from Order router'});
     
-    Order.find((err, result)=>{
+    Order.find({}).populate("orderType","operationName").exec((err, result)=>{
         if(err) console.log(error);
         res.json(result);
     })

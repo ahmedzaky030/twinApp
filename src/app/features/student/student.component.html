@@ -1,6 +1,6 @@
 <ng-template #template>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
+    <h4 class="modal-title pull-left">{{isNew ? 'Create New Student' : 'Edit Student'}}</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -9,36 +9,33 @@
     <form [formGroup]="studentForm">
       <div class="form-group">
         <label for="name">Student Name</label>
-        <input type="text" class="form-control" id="name" name="studentName" formControlName="studentName" aria-describedby="emailHelp" placeholder="Enter Doctor Name ">
+        <input type="text" class="form-control" id="name" name="studentName" formControlName="studentName" aria-describedby="emailHelp" placeholder="Enter Student Name ">
        
       </div>
       <div class="form-group">
         <label for="university">University</label>
-        <input type="text" class="form-control" id="university" name="university" formControlName="university" aria-describedby="emailHelp" placeholder="Enter Doctor Number ">
-       
+        <input type="text" class="form-control" id="university" name="university" formControlName="university" aria-describedby="emailHelp" placeholder="Enter University ">
       </div>
     
       <div class="form-group">
         <label for="grade">Grade</label>
-        <input type="text" class="form-control" id="grade" name="grade" formControlName="grade" aria-describedby="emailHelp" placeholder="Enter Doctor Address ">  
-        
+        <input type="text" class="form-control" id="grade" name="grade" formControlName="grade" aria-describedby="emailHelp" placeholder="Enter Grade ">  
       </div>
 
       
       <div class="form-group">
         <label for="id">Code</label>
-        <input type="text" class="form-control" id="id" name="code" formControlName="code" />  
+        <input type="text" class="form-control" id="id" name="code" formControlName="code" placeholder="Enter Code" />  
       </div>
      
       <!-- <div class="form-group form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1">
         <label class="form-check-label" for="exampleCheck1">Check me out</label>
-      </div> -->
-      
+      </div> --> 
     </form>
   </div>
   <div class="modal-footer">
-      <button type="submit" (click)="save()" [disabled]="!studentForm.valid" class="btn btn-primary">Submit</button>
+      <button type="submit" (click)="save()" [disabled]="!studentForm.valid" class="btn btn-primary">Save</button>
       <button (click)="modalRef.hide()" class="btn btn-primary">Cancel</button>
   </div>
 
@@ -94,7 +91,7 @@
             <label>2. <input  type="checkbox"  [(ngModel)]="student.requirement.scnd" > </label>
              <label>3. <input  type="checkbox" [(ngModel)]="student.requirement.thrd" > </label>
             <label>4. <input  type="checkbox" [(ngModel)]="student.requirement.frth"  > </label>
-            <span class="col-lg-3" (click)="updateReq(student)">Update <i class="fa fa-thumbs-up"></i></span>
+            <span class="col-lg-3 update-cursor" (click)="updateReq(student)">Update <i class="fa fa-thumbs-up"></i></span>
             </div>
           </td>
           <td>{{student.code}}</td>
