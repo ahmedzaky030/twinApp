@@ -8,7 +8,11 @@ var OrderSchema = {
     cost: Number,
     orderDate: Date,
     deliveryDate: Date,
-    technicianName:String
+    technicianName:String,
+    client: {
+        student : {type:mongoose.Schema.Types.ObjectId, ref:'Student'},
+        clinic : {type:mongoose.Schema.Types.ObjectId, ref:'Clinic'}        
+    }
 }
 
 var schema = mongoose.Schema(OrderSchema);

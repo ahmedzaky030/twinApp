@@ -25,6 +25,24 @@ router
         res.json(result);
     })
 })
+.get('/:id/type/:type', (req, res)=>{
+    var type = req.params.type;
+    var id = req.params.id;
+    if(type == 'student'){
+        // Find a way to search by student id in client and how to populate it again
+        Order.find( {"client.student": id}).populate("client.student" ,"studentName").populate("orderType","operationName").exec((err, result) => {
+            if(err) console.log(err);
+            console.log('students' , result);
+            res.json(result);
+        })
+        // the same for clinic
+    } else if( type == 'clinic'){
+        Order.find({client : {clinic : id }}).populate("client.clinic", "clinicName").populate("orderType","operationName").exec((err, result) => {
+            if(err) console.log(err);
+            console.log('clinics' , result);
+        })
+    }    
+})
 .get('/search/:search' , (req, res) => {
     //res.json({'message': 'hello from clinic router'});
     var search = req.params.search;
@@ -37,9 +55,10 @@ router
 .post('/', (req ,res) => {
    // console.log(body({"body":"hello"}))
    var doc =  req.body;
+   console.log('new order body to be created', doc)
    Order.create(doc,(err, result)=> {
        if(err) console.log(errorLog(err));
-       console.log(result);
+       console.log('new Order',result);
        res.json(result);
    })
 })

@@ -85,6 +85,7 @@
           <td>{{student.studentName}}</td>
           <td>{{student.university}}</td>
           <td>{{student.grade}}</td>
+          
           <td>
             <div>
               <label>1. <input  type="checkbox" [(ngModel)]="student.requirement.frst" ></label>
@@ -96,8 +97,9 @@
           </td>
           <td>{{student.code}}</td>
           <td>
-            <span (click)="openDeleteModal(deletetemplate , student)" class="col-4"><i class="fa fa-trash"></i></span>
-          <span (click)="openModal(template, student)" class="col-4"><i class="fa fa-pencil"></i> </span>
+            <span (click)="openDeleteModal(deletetemplate , student)" class="col-3"><i class="fa fa-trash"></i></span>
+          <span (click)="openModal(template, student)" class="col-3"><i class="fa fa-pencil"></i> </span>
+          <input type="button" class="form-control col-6 btn btn-primary" value="Make order" (click)="makeOrder(student)" />
          <!-- <span (click)="openModal(template)" class="col-4"> <i class="fa fa-eye"></i></span> -->
           </td>
         </tr>     

@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StudentApi } from '../../api/services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student',
@@ -19,7 +20,8 @@ export class StudentComponent implements OnInit {
   modalRef: BsModalRef;
   constructor( private _modalService:BsModalService ,
      private studentApi: StudentApi,
-     private _fb: FormBuilder ) { }
+     private _fb: FormBuilder, 
+     private router : Router ) { }
 
   ngOnInit() {
     this.studentForm = this._fb.group({
@@ -96,6 +98,10 @@ export class StudentComponent implements OnInit {
     this.studentApi.getStudentList().subscribe(data => {
       this.students = data;
     })
+  }
+
+  makeOrder(st){
+    this.router.navigate(['order',st._id,'student']);
   }
 }
 

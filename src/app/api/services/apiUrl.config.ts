@@ -21,6 +21,7 @@ export const apiUrl = {
     orderUrlWithId: `${baseUrl}/order/{0}`,
     orderUrlWithSearch : `${baseUrl}/order/search/{0}`,
     orderFinishedUrl : `${baseUrl}/order/finished`,
+    orderUrlwithType:`${baseUrl}/order/{0}/type/{1}`,
 
     // ext-order
     extOrderUrl: `${baseUrl}/ext-order`,

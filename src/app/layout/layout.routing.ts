@@ -13,7 +13,7 @@ import { StoreComponent } from '../features/store/store.component';
 const routes : Routes  = [
     { path: 'main' , component:DashboardComponent   },
     { path:'student', component:StudentComponent },
-    { path:'order', component: OrderComponent },
+    { path:'order/:id/:type', component: OrderComponent },
     { path:'clinic', component: ClinicComponent },
     { path: 'extOrder' , component:ExtOrderComponent },
     { path: 'item' , component: ItemComponent },

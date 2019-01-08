@@ -34,6 +34,7 @@
 
 
 </ng-template>
+
 <ng-template #deletetemplate>
   <div class="modal-header">
     <h4 class="modal-title pull-left">Delete Clinic </h4>
@@ -77,6 +78,7 @@
       <td>
         <span (click)="openDeleteModal(deletetemplate , clinic)" class="col-4"><i class="fa fa-trash"></i></span>
       <span (click)="openModal(template, clinic)" class="col-4"><i class="fa fa-pencil"></i> </span>
+      <input type="button" class="form-control col-6 btn btn-primary" value="Make order" (click)="makeOrder(clinic)" />
      <!-- <span (click)="openModal(template)" class="col-4"> <i class="fa fa-eye"></i></span> -->
       </td>
     </tr>    

@@ -12,10 +12,14 @@ export class OrderApi {
     orderWithIdUrl = apiUrl.orderUrlWithId;
     orderUrl = apiUrl.orderUrl;
     orderFinishedUrl = apiUrl.orderFinishedUrl;
+    orderTypeUrl = apiUrl.orderUrlwithType;
     
-    getOrderList(search?: string): Observable<any>{
-        let url = search ? this.searchOrderUrl.replace("{0}", search) : this.orderUrl;
-        return  this.http.get(url).map(res => res.json())
+    getOrderList(search?: string , id?:string , type?:string): Observable<any>{
+        debugger;
+        let url = search ? this.searchOrderUrl.replace("{0}", search) : this.orderTypeUrl;
+        url = type ? url.replace("{0}", id).replace("{1}", type) : this.orderUrl;
+        console.log('new  order url', url);
+        return  this.http.get(url).map(res => res.json());
     }
 
     getOrderFinishedList(){
